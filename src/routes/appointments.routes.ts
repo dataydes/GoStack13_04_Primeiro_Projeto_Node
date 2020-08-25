@@ -1,21 +1,33 @@
 import { Router, request, response } from 'express';
-import { uuid } from 'uuidv4';
-import {startOfHour, parseISO} from 'date-fns';
-
+import { startOfHour, parseISO } from 'date-fns';
+import AppointmentRepository from '../repositories/AppointmentsRepository';
 const appointmentsRouter = Router();
 
-const appointments = [];
+const appointmentsRepository = new AppointmentRepository();
 
+appointmentsRouter.get('/', (request, response) => {
+    const appointments = appointmentsRepository.all();
+
+    return response.json(appointments);
+
+})
 
 appointmentsRouter.post('/', (request, response) => {
     const { provider, date } = request.body;
 
-    const appointment = {
-        id: uuid(),
-        provider,
-        date,
+    const parseDate = startOfHour(parseISO(date));
+
+    const findAppointmentInSameDate = appointmentsRepository.findByDate(
+        parseDate);
+
+
+    if (findAppointmentInSameDate) {
+        return response.status(400).json({ message: "Este horário já está agendado." });
     }
-    appointments.push(appointment);
+
+    const appointment = appointmentsRepository.create(provider, parseDate);
+
+
     return response.json(appointment);
 });
 
