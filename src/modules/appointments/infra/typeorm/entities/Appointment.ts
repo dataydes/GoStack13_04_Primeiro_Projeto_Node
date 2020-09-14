@@ -5,7 +5,7 @@ import {
     UpdateDateColumn,
     ManyToOne, JoinColumn
 } from 'typeorm';
-import User from './Users';
+import User from '@modules/users/infra/typeorm/entities/Users';
 
 
 @Entity('appointments')
