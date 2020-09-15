@@ -1,32 +1,37 @@
-import { getRepository } from 'typeorm';
-import User from  '@modules/users/infra/typeorm/entities/Users';
+import User from '@modules/users/infra/typeorm/entities/Users';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
-import AppError from '@shared/errors/App.error';
+import { inject, injectable } from 'tsyringe';
 
-interface Request {
+import AppError from '@shared/errors/App.error';
+import IUsersRepository from '../repositories/IUsersRepository';
+
+interface IRequest {
     email: string;
     password: string;
 }
-interface Response {
+interface IResponse {
     token: string;
     user: User;
 }
-
+@injectable()
 class AutheticateUserService {
-    public async execute({ email, password }: Request): Promise<Response> {
-        const userRepository = getRepository(User);
+    constructor(@inject('UsersRepository')
+    private usersRepository: IUsersRepository) { }
 
-        const user = await userRepository.findOne({ where: { email } });
+    public async execute({ email, password }: IRequest): Promise<IResponse> {
+
+
+        const user = await this.usersRepository.findByEmail(email);
         if (!user) {
-            throw new AppError('Incorrect email/password combination.',401);
+            throw new AppError('Incorrect email/password combination.', 401);
         }
 
         const passwordMatched = await compare(password, user.password);
 
         if (!passwordMatched) {
-            throw new AppError('Incorrect email/password combination.',401);
+            throw new AppError('Incorrect email/password combination.', 401);
         }
 
         const { secret, expiresIn } = authConfig.jwt;
