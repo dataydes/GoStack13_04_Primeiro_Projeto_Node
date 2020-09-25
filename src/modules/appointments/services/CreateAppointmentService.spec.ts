@@ -1,4 +1,3 @@
-import CreateUserService from '@modules/users/services/CreateUserService';
 import AppError from '@shared/errors/App.error';
 
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
