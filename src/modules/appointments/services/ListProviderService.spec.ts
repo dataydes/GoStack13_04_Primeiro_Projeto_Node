@@ -2,7 +2,6 @@ import AppError from '@shared/errors/App.error';
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import ListProvidersService from './ListProviderService';
-import ShowProfile from '@modules/users/services/ShowProfileService';
 
 let fakeUsersRepository: FakeUsersRepository;
 let listProviders: ListProvidersService;
