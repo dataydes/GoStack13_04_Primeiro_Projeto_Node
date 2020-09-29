@@ -10,7 +10,7 @@ interface IRequest {
 }
 type IResponse = Array<{
     day: number;
-    avaliable: boolean;
+    available: boolean;
 }>;
 
 @injectable()
@@ -20,7 +20,7 @@ class ListProviderMonthAvailabilityService {
         private appointmentsRepository: IAppointmentsRepository,
     ) { }
     public async execute({ provider_id, year, month }: IRequest): Promise<IResponse> {
-        const appointments =  await this.appointmentsRepository.findAllInMonthFromProvider({
+        const appointments = await this.appointmentsRepository.findAllInMonthFromProvider({
             provider_id,
             year,
             month,
@@ -36,7 +36,7 @@ class ListProviderMonthAvailabilityService {
 
             return {
                 day,
-                avaliable: appointmentsInDay.length < 10,
+                available: appointmentsInDay.length < 10,
             };
         });
         return availability;
