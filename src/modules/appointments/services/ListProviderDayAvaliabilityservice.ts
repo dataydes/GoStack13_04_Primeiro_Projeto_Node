@@ -31,11 +31,11 @@ class ListProviderDayAvailabilityService {
 
         const currentDate = new Date(Date.now());
         const availability = eachHourArray.map(hour => {
+
             const hasAppointmentInHour = appointments.find(
                 appointment => getHours(appointment.date) === hour,
             );
             const compareDate = new Date(year, month - 1, day, hour);
-
 
             return {
                 hour,
