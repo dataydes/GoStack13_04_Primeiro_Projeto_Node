@@ -19,7 +19,7 @@ class CreateAppointmentService {
         @inject('AppointmentsRepository')
         private appointmentsRepository: IAppointmentsRepository,
 
-        @inject('AppointmentsRepository')
+        @inject('NotificationsRepository')
         private notificationsRepository: INotificationsRepository,
     ) { }
 
@@ -46,22 +46,23 @@ class CreateAppointmentService {
         );
 
         if (findAppointmentInSameDate) {
-                        throw new AppError('Este horário já está agendado.');
-            
+            throw new AppError('Este horário já está agendado.');
+
         }
-        
+
         const appointment = await this.appointmentsRepository.create({
             provider_id,
             user_id,
             date: appointmentDate,
         });
-        console.log("Agendamento Criado");
+
         const dateFormatted = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'");
+        console.log("Agendamento Criado no Postgres, Registrando o agendamento no MongoDB para " + dateFormatted);
         await this.notificationsRepository.create({
             recipient_id: provider_id,
             content: `Novo agendamento para dia ${dateFormatted}`,
         });
-
+        console.log("Agendamento criado.")
         return appointment;
     }
 }
