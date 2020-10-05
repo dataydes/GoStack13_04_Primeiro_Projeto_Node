@@ -2,6 +2,8 @@
 build/
 .env
 tmp/*
+tmp/uploads/*
+!tmp/uploads/
 !tmp/.gitkeep
 
 
