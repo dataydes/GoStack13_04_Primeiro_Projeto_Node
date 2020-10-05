@@ -30,6 +30,7 @@ export default function ensureAuthenticated(
         request.user = {
             id: sub,
         };
+        console.log("Autenticado, redirecionado a rota.")
         return next();
     } catch {
         throw new AppError('Invalid JWT token', 401);
