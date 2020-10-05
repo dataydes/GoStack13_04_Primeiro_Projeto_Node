@@ -1,5 +1,9 @@
 /node_modules
 build/
-
+.env
 tmp/*
 !tmp/.gitkeep
+
+
+# ormconfig.json para remover do repositório
+# git rm --cached ormconfig.json
