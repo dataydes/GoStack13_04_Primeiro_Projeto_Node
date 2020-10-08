@@ -1,7 +1,8 @@
 import { string } from "@hapi/joi"
 
 export default interface ICacheProvider {
-    save(key:string, value:any): Promise<void>;
-    recover<T>(key:string): Promise<T|null>;
-    invalidate(key:string): Promise<void>;
+    save(key: string, value: any): Promise<void>;
+    recover<T>(key: string): Promise<T | null>;
+    invalidate(key: string): Promise<void>;
+    invalidadePrefix(prefix: string): Promise<void>;
 }
