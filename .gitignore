@@ -1,10 +1,13 @@
-/node_modules
+.vscode/
+node_modules/
 build/
 .env
+coverage
+ormconfig.json
+dist
+
 tmp/*
-tmp/uploads/*
-!tmp/uploads/
-!tmp/.gitkeep
+!tmp/uploads/.gitkeep
 
 
 # ormconfig.json para remover do repositório
