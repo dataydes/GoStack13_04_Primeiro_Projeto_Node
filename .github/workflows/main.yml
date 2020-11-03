@@ -31,4 +31,4 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         key: ${{ secrets.SSH_key }}
         source: "."
-        target: "test"        
+        target: "~/app/GoStack13_04_Primeiro_Projeto_Node"        
