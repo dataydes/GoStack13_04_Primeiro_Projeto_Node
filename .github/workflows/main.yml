@@ -43,23 +43,5 @@ jobs:
         script: |
           cd ~/app/GoStack13_04_Primeiro_Projeto_Node
           yarn
-    - name: Run migrations on DIgital ocean
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
-        key: ${{ secrets.SSH_key }}   
-        script: |
-          cd ~/app/GoStack13_04_Primeiro_Projeto_Node
-          ./node_modules/.bin/typeorm migration:run   
-      
-    - name: Run migrations on DIgital ocean
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
-        key: ${{ secrets.SSH_key }}   
-        script: pm2 restart gobarber-api
-             
+          ./node_modules/.bin/typeorm migration:run
+          pm2 restart gobarber-api
